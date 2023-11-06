@@ -6,6 +6,7 @@
 | ------------------ | -------- | ------------------------- |
 | nickname           | string   | null: false               |
 | email              | string   | null: false, unique: true |
+| encrypted_password | string   | null: false               |
 | last_name          | string   | null: false               |
 | last_name_kana     | string   | null: false               |
 | first_name         | string   | null: false               |
@@ -34,8 +35,8 @@
 
 ### Association
 
-- belongs_to :users
-- has_one :orders
+- belongs_to :user
+- has_one :order
 
 ## orders テーブル
 
@@ -46,9 +47,9 @@
 
 ### Association
 
-- belongs_to :users
-- belongs_to :items
-- belongs_to :deliveries
+- belongs_to :user
+- belongs_to :item
+- has_one :delivery
 
 
 ## deliveries テーブル
@@ -60,9 +61,9 @@
 | city           | string     | null: false                    |
 | house_number   | string     | null: false                    |
 | building_name  | string     |                                |
-| phone_number   | integer    | null: false                    |
+| phone_number   | string     | null: false                    |
 | order          | references | null: false, foreign_key: true |
 
 ### Association
 
-- has_many :orders
+- belongs_to :order
