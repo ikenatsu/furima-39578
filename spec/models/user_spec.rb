@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
   before do
     @user = FactoryBot.build(:user)
   end
 
   describe 'ユーザー新規登録' do
+    it 'nickname、email、password、password_confirmation、および名前(全角)、名前カナ(全角)、生年月日の情報があれば登録できる' do
+      expect(@user).to be_valid
+    end
     it 'nicknameが空では登録できない' do
       @user.nickname = ''
       @user.valid?
@@ -76,6 +78,11 @@ RSpec.describe User, type: :model do
       @user.first_name_kana = 'あいうえお'
       @user.valid?
       expect(@user.errors.full_messages).to include 'First name kana is invalid. Input full-width katakana characters.'
+    end
+    it 'birth_dayが空では保存できない' do
+      @user.birth_day = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Birth day can't be blank"
     end
   end
 end
