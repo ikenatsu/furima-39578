@@ -12,12 +12,10 @@ class User < ApplicationRecord
   end
 
   validates :nickname, presence: true
-  # validates :password, format: { with: /\A(?=.*[a-zA-Z])(?=.*\d)/, message: 'is invalid. Include both letters and numbers'} ※開発段階のため、一時的にコメントアウトで残しています。
-  # validates :password, format: { with: /\A[a-z0-9]+\z/i, message: "is invalid. Input half-width characters."} ※開発段階のため、一時的にコメントアウトで残しています。
   validates :password, format: { with: /\A(?=.*[0-9])(?=.*[a-zA-Z])\w+\z/, message: "is invalid. Include both letters and numbers"}
   validates :birth_day, presence: true
 
-  # has_many :items
+  has_many :items
   # has_many :orders
 
 end
