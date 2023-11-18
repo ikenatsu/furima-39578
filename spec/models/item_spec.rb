@@ -25,27 +25,27 @@ RSpec.describe Item, type: :model do
       it 'categoryが空では出品できない' do
         @item.category_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include "Category must be selected"
+        expect(@item.errors.full_messages).to include 'Category must be selected'
       end
       it 'conditionが空では出品できない' do
         @item.condition_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include "Condition must be selected"
+        expect(@item.errors.full_messages).to include 'Condition must be selected'
       end
       it 'shipping_costが空では出品できない' do
         @item.shipping_cost_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include "Shipping cost must be selected"
+        expect(@item.errors.full_messages).to include 'Shipping cost must be selected'
       end
       it 'prefectureが空では出品できない' do
         @item.prefecture_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include "Prefecture must be selected"
+        expect(@item.errors.full_messages).to include 'Prefecture must be selected'
       end
       it 'shipping_durationが空では出品できない' do
         @item.shipping_duration_id = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include "Shipping duration must be selected"
+        expect(@item.errors.full_messages).to include 'Shipping duration must be selected'
       end
       it 'priceが空では出品できない' do
         @item.price = nil
@@ -55,14 +55,13 @@ RSpec.describe Item, type: :model do
       it 'priceが300〜9999999の間以外の値では出品できない' do
         @item.price = 100
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price must be between 300 and 9,999,999"
+        expect(@item.errors.full_messages).to include 'Price must be between 300 and 9,999,999'
       end
       it 'priceの値が全角では出品できない' do
         @item.price = '値段'
         @item.valid?
-        expect(@item.errors.full_messages).to include "Price must be between 300 and 9,999,999"
+        expect(@item.errors.full_messages).to include 'Price must be between 300 and 9,999,999'
       end
     end
   end
 end
-
