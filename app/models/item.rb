@@ -38,7 +38,6 @@ class Item < ApplicationRecord
     validates :price,
               numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999,
                               message: 'must be between 300 and 9,999,999' }
-    validates :price, format: { with: /\A[0-9]+\z/, message: ' is not a number' }
   end
 
   validates :category_id, :condition_id, :shipping_cost_id, :prefecture_id, :shipping_duration_id,

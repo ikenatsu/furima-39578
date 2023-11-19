@@ -12,6 +12,11 @@ RSpec.describe Item, type: :model do
       end
     end
     context '商品出品できないとき' do
+      it 'imageが空では保存できない' do
+        @item.image = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Image can't be blank"
+      end      
       it 'item_nameが空では出品できない' do
         @item.item_name = ''
         @item.valid?
@@ -23,27 +28,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Comment can't be blank"
       end
       it 'categoryが空では出品できない' do
-        @item.category_id = nil
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Category must be selected'
       end
       it 'conditionが空では出品できない' do
-        @item.condition_id = nil
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Condition must be selected'
       end
       it 'shipping_costが空では出品できない' do
-        @item.shipping_cost_id = nil
+        @item.shipping_cost_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Shipping cost must be selected'
       end
       it 'prefectureが空では出品できない' do
-        @item.prefecture_id = nil
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Prefecture must be selected'
       end
       it 'shipping_durationが空では出品できない' do
-        @item.shipping_duration_id = nil
+        @item.shipping_duration_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include 'Shipping duration must be selected'
       end
@@ -52,8 +57,13 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank"
       end
-      it 'priceが300〜9999999の間以外の値では出品できない' do
+      it 'priceが300未満の値では出品できない' do
         @item.price = 100
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price must be between 300 and 9,999,999'
+      end
+      it 'priceが9999999より大きい値では出品できない' do
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price must be between 300 and 9,999,999'
       end
@@ -61,6 +71,11 @@ RSpec.describe Item, type: :model do
         @item.price = '値段'
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price must be between 300 and 9,999,999'
+      end
+      it 'ユーザーが紐づいていないと出品できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include "User must exist"
       end
     end
   end
