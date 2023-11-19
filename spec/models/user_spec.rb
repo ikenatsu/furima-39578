@@ -8,7 +8,7 @@ RSpec.describe User, type: :model do
   describe 'ユーザー新規登録' do
     context '新規登録できるとき' do
       it 'nickname、email、password、password_confirmation、および名前(全角)、名前カナ(全角)、生年月日の情報があれば登録できる' do
-      expect(@user).to be_valid
+        expect(@user).to be_valid
       end
     end
     context '新規登録できないとき' do
@@ -42,17 +42,17 @@ RSpec.describe User, type: :model do
       it 'passwordが英字だけでは登録できない' do
         @user.password = 'sampletest'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password is invalid. Include both letters and numbers"
+        expect(@user.errors.full_messages).to include 'Password is invalid. Include both letters and numbers'
       end
       it 'passwordが数字だけでは登録できない' do
         @user.password = '12345678'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password is invalid. Include both letters and numbers"
+        expect(@user.errors.full_messages).to include 'Password is invalid. Include both letters and numbers'
       end
       it 'passwordに全角文字を含むと登録できない' do
         @user.password = 'サンプルtest1'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password is invalid. Include both letters and numbers"
+        expect(@user.errors.full_messages).to include 'Password is invalid. Include both letters and numbers'
       end
       it 'passwordとpassword_confirmationが不一致では保存できない' do
         @user.password = 'asdfghj1'
