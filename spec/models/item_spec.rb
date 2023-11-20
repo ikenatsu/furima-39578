@@ -16,7 +16,7 @@ RSpec.describe Item, type: :model do
         @item.image = nil
         @item.valid?
         expect(@item.errors.full_messages).to include "Image can't be blank"
-      end      
+      end
       it 'item_nameが空では出品できない' do
         @item.item_name = ''
         @item.valid?
@@ -63,7 +63,7 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include 'Price must be between 300 and 9,999,999'
       end
       it 'priceが9999999より大きい値では出品できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price must be between 300 and 9,999,999'
       end
@@ -75,7 +75,7 @@ RSpec.describe Item, type: :model do
       it 'ユーザーが紐づいていないと出品できない' do
         @item.user = nil
         @item.valid?
-        expect(@item.errors.full_messages).to include "User must exist"
+        expect(@item.errors.full_messages).to include 'User must exist'
       end
     end
   end
