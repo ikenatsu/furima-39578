@@ -4,7 +4,7 @@ class OrderDelivery
   extend ActiveHash::Associations::ActiveRecordExtensions
   attr_accessor :token,:user_id,:item_id,:post_code,:prefecture_id,:city,:house_number,:building_name,:phone_number
 
-  # validates :token, presence: true
+  validates :token, presence: true
   validates :post_code, presence: true, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
   validates :prefecture_id, presence: true
   validates :city, presence: true
