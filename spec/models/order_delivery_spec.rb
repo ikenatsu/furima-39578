@@ -58,6 +58,11 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Phone number should be 10 or 11 digits long and contain only numbers")
       end
+      it "tokenが空では登録できないこと" do
+        @order_delivery.token = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
+      end
     end
   end
 end
