@@ -9,8 +9,8 @@ class OrderDelivery
   validates :prefecture_id, presence: true
   validates :city, presence: true
   validates :house_number, presence: true
-  validates :building_name, presence: true
-  validates :phone_number, presence: true
+  # validates :building_name, presence: true
+  validates :phone_number, presence: true, format: { with: /\A\d{10,11}\z/, message: 'should be 10 or 11 digits long and contain only numbers' }
   validates :prefecture_id, numericality: { other_than: 1, message: 'must be selected' }
 
   def save
