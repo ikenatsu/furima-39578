@@ -26,17 +26,17 @@ RSpec.describe OrderDelivery, type: :model do
       it 'post_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと' do
         @order_delivery.post_code = '1234567'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@order_delivery.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'post_codeが3桁ハイフン4桁の半角文字列でないと保存できない' do
         @order_delivery.post_code = '1234-567'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Post code is invalid. Include hyphen(-)")
+        expect(@order_delivery.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'prefectureを選択していないと保存できないこと' do
         @order_delivery.prefecture_id = '1'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Prefecture must be selected")
+        expect(@order_delivery.errors.full_messages).to include('Prefecture must be selected')
       end
       it 'cityが空だと保存できないこと' do
         @order_delivery.city = ''
@@ -56,9 +56,9 @@ RSpec.describe OrderDelivery, type: :model do
       it '電話番号は10桁以上11桁以内の半角数値でないと保存できないこと' do
         @order_delivery.phone_number = '090-1234-5678'
         @order_delivery.valid?
-        expect(@order_delivery.errors.full_messages).to include("Phone number should be 10 or 11 digits long and contain only numbers")
+        expect(@order_delivery.errors.full_messages).to include('Phone number should be 10 or 11 digits long and contain only numbers')
       end
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @order_delivery.token = nil
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
