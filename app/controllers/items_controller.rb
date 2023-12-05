@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-  # before_action :move_to_index, except: [:index, :show]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
@@ -43,12 +42,6 @@ class ItemsController < ApplicationController
     @item.destroy
     redirect_to root_path
   end
-
-  #   def move_to_index
-  #     return if user_signed_in?
-
-  #     redirect_to action: :index
-  #   end
 
   private
 

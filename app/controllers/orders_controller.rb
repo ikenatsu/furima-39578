@@ -49,7 +49,4 @@ class OrdersController < ApplicationController
     )
   end
 
-  # def address_params
-  #   params.permit(:postal_code, :prefecture, :city, :house_number, :building_name).merge(donation_id: @donation.id)
-  # end
 end
