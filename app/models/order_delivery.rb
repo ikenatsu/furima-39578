@@ -3,15 +3,17 @@ class OrderDelivery
   extend ActiveHash::Associations::ActiveRecordExtensions
   attr_accessor :token, :user_id, :item_id, :post_code, :prefecture_id, :city, :house_number, :building_name, :phone_number
 
-  validates :token, presence: true
-  validates :post_code, presence: true, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
-  validates :prefecture_id, presence: true
-  validates :city, presence: true
-  validates :house_number, presence: true
-  # validates :building_name, presence: true
-  validates :phone_number, presence: true,
-                           format: { with: /\A\d{10,11}\z/, message: 'should be 10 or 11 digits long and contain only numbers' }
-  validates :prefecture_id, numericality: { other_than: 1, message: 'must be selected' }
+  with_options presence: true do
+    validates :token
+    validates :post_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'is invalid. Include hyphen(-)' }
+    validates :prefecture_id
+    validates :city
+    validates :house_number
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, message: 'should be 10 or 11 digits long and contain only numbers' }
+    validates :prefecture_id, numericality: { other_than: 1, message: 'must be selected' }
+    validates :user_id
+    validates :item_id
+  end
 
   def save
     order = Order.create(user_id:, item_id:)

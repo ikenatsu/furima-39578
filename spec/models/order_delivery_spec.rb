@@ -4,7 +4,9 @@ RSpec.describe OrderDelivery, type: :model do
   describe '商品購入情報の保存' do
     before do
       user = FactoryBot.create(:user)
-      @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id)
+      item = FactoryBot.create(:item)
+      # @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id)
+      @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id, item_id: item.id)
     end
 
     context '内容に問題ない場合' do
@@ -53,7 +55,17 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号は10桁以上11桁以内の半角数値でないと保存できないこと' do
+      it '電話番号は9桁以下では購入できない' do
+        @order_delivery.phone_number = '090123456'
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include('Phone number should be 10 or 11 digits long and contain only numbers')
+      end
+      it '電話番号は12桁以上では購入できない' do
+        @order_delivery.phone_number = '0901234567890'
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include('Phone number should be 10 or 11 digits long and contain only numbers')
+      end
+      it '電話番号は半角数字以外が含まれている場合は購入できない' do
         @order_delivery.phone_number = '090-1234-5678'
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include('Phone number should be 10 or 11 digits long and contain only numbers')
@@ -62,6 +74,16 @@ RSpec.describe OrderDelivery, type: :model do
         @order_delivery.token = nil
         @order_delivery.valid?
         expect(@order_delivery.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが紐づいてなければ購入できない' do
+        @order_delivery.user_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐づいてなければ購入できない' do
+        @order_delivery.item_id = nil
+        @order_delivery.valid?
+        expect(@order_delivery.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
