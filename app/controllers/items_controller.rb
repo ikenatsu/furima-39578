@@ -1,5 +1,4 @@
 class ItemsController < ApplicationController
-  # before_action :move_to_index, except: [:index, :show]
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
   before_action :contributor_confirmation, only: [:edit, :update, :destroy]
@@ -25,6 +24,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    return unless current_user == @item.user && @item.order.present?
+
+    redirect_to root_path
   end
 
   def update
@@ -41,12 +43,6 @@ class ItemsController < ApplicationController
     redirect_to root_path
   end
 
-  #   def move_to_index
-  #     return if user_signed_in?
-
-  #     redirect_to action: :index
-  #   end
-
   private
 
   def item_params
@@ -59,8 +55,8 @@ class ItemsController < ApplicationController
   end
 
   def contributor_confirmation
-    unless current_user == @item.user
-      redirect_to root_path
-    end
+    return if current_user == @item.user
+
+    redirect_to root_path
   end
 end
