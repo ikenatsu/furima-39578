@@ -5,7 +5,6 @@ RSpec.describe OrderDelivery, type: :model do
     before do
       user = FactoryBot.create(:user)
       item = FactoryBot.create(:item)
-      # @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id)
       @order_delivery = FactoryBot.build(:order_delivery, user_id: user.id, item_id: item.id)
     end
 

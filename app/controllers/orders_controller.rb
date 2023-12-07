@@ -7,17 +7,11 @@ class OrdersController < ApplicationController
       redirect_to root_path
     elsif @item.order.nil?
       gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-      # @order = Order.create(order_params)
       @order_delivery = OrderDelivery.new
-      @item = Item.find(params[:item_id])
     else
       redirect_to root_path
     end
   end
-
-  # def new
-  #   @order_delivery = OrderDelivery.new
-  # end
 
   def create
     @order_delivery = OrderDelivery.new(order_params)
